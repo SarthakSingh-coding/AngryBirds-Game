@@ -1,4 +1,4 @@
-var ground;
+var ground, bgImg, platform;
 var engine;
 const B = Matter.Bodies;
 const W = Matter.World;
@@ -8,6 +8,10 @@ var pig1, pig2;
 var log1, log2, log3, log4;
 var bird1;
 
+function preLoad(){
+  bgImg = loadImage("sprites/bg.png");
+}
+
 function setup() {
   createCanvas(1200, 700);
   rectMode(CENTER);
@@ -16,9 +20,11 @@ function setup() {
   engine = E.create();
   world = engine.world;
 
-  var groundHolder = { isStatic: true};
   
-  ground = B.rectangle(600, height-35, 1200, 20, groundHolder);
+  
+  ground = new Ground(600, height-35, 1200, 20);
+
+  platform = new Ground(150, 560, 300, 200);
   box1 = new Box(900, 610, 70, 70);
   
   box2 = new Box(700, 610, 70, 70);
@@ -49,11 +55,11 @@ function setup() {
 }
 
 function draw() {
-  background("lightBlue");
+  background("bgImg");
   Matter.Engine.update(engine);
 
   // rect(400, 100, 50, 50);
-  rect(ground.position.x, ground.position.y, 1200, 20);
+  //rect(ground.position.x, ground.position.y, 1200, 20);
   box1.display();
   box2.display();
   box3.display();
@@ -66,6 +72,8 @@ function draw() {
   log3.display();
   log4.display();
   bird1.displayBird();
+  ground.display();
+  platform.display();
   
 
  //drawSprites();
